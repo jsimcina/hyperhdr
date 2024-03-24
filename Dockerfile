@@ -14,13 +14,13 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-ins
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN curl -fsSL https://awawa-dev.github.io/hyperhdr.public.apt.gpg.key | sudo dd of=/usr/share/keyrings/hyperhdr.public.apt.gpg.key \
-    && sudo chmod go+r /usr/share/keyrings/hyperhdr.public.apt.gpg.key \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hyperhdr.public.apt.gpg.key] https://awawa-dev.github.io $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hyperhdr.list > /dev/null \
-    && sudo apt update \
-    && sudo apt install hyperhdr -y
+RUN curl -fsSL https://awawa-dev.github.io/hyperhdr.public.apt.gpg.key | dd of=/usr/share/keyrings/hyperhdr.public.apt.gpg.key \
+    && chmod go+r /usr/share/keyrings/hyperhdr.public.apt.gpg.key \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hyperhdr.public.apt.gpg.key] https://awawa-dev.github.io $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hyperhdr.list > /dev/null \
+    && apt update \
+    && apt install hyperhdr -y
     RUN apt-get clean &&
-    RUN sudo -u hyperhdr /usr/bin/hyperhdr -v --service
+    RUN -u hyperhdr /usr/bin/hyperhdr -v --service
 
 EXPOSE 8090 19444 19445
 
