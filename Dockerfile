@@ -1,4 +1,4 @@
-FROM debian:bookworm as build
+FROM debian-slim:bookworm as build
 
 RUN groupadd -f hyperhdr || true && \
     useradd --uid ${UID:-1000} --gid ${GID:-1000} --no-create-home --disabled-password hyperhdr || true && \
