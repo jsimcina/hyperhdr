@@ -16,7 +16,7 @@ jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
-      contents: write 
+      contents: read 
       packages: write
     steps:
       - name: Checkout repository
@@ -50,11 +50,10 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-        with:
-          build-args: 
-          context: .
+        with:          
+          context: ./Dockerfile
           push: true
-          tags: ghcr.io/jsimcina/hyperhdr:${{ env.VERSION }}
+          tags: ghcr.io/jsimcina/hyperhdr:20.0.0.0
           labels: ${{ steps.meta.outputs.labels }}
       - name: Create tag
         uses: actions/github-script@v6
