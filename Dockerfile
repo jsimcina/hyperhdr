@@ -20,7 +20,7 @@ RUN curl -fsSL https://awawa-dev.github.io/hyperhdr.public.apt.gpg.key | dd of=/
     && apt update \
     && apt install hyperhdr -y
     RUN apt-get clean
-    RUN -u hyperhdr /usr/bin/hyperhdr -v --service
+    RUN /usr/bin/hyperhdr -v --service -u /config
 
 EXPOSE 8090 19444 19445
 
