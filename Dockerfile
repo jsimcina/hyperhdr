@@ -18,12 +18,13 @@ RUN curl -fsSL https://awawa-dev.github.io/hyperhdr.public.apt.gpg.key | dd of=/
     && chmod go+r /usr/share/keyrings/hyperhdr.public.apt.gpg.key \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hyperhdr.public.apt.gpg.key] https://awawa-dev.github.io $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hyperhdr.list > /dev/null \
     && apt update \
-    && apt install hyperhdr -y
-    RUN apt-get clean
-    RUN /usr/bin/hyperhdr -v --service -u /config
+    && apt install hyperhdr -y \
+    && apt-get clean
 
 EXPOSE 8090 19444 19445
 
-RUN echo 'Running webUI on port 8090. Port 19444-19445 exposed for json, protobuffer server (hyperion-screen-cap).'
+COPY entrypoint.sh /
 
-CMD ["hyperhdr"]
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]
