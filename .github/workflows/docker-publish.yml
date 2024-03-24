@@ -51,10 +51,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
-          build-args: BW_CLI_VERSION=${{ env.VERSION }}
+          build-args: 
           context: .
           push: true
-          tags: ghcr.io/jsimcina/bitwarden-cli:${{ env.VERSION }}
+          tags: ghcr.io/jsimcina/hyperhdr:${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Create tag
         uses: actions/github-script@v6
