@@ -1,8 +1,9 @@
 FROM debian:bookworm as build
 
 RUN groupadd -f hyperhdr || true && \
-    adduser -q --uid ${UID:-1000} --gid ${GID:-1000} --no-create-home --disabled-password hyperhdr || true && \
-    chown ${UID:-1000}:${GID:-1000} /config
+    useradd --uid ${UID:-1000} --gid ${GID:-1000} --no-create-home --disabled-password hyperhdr || true && \
+    mkdir -p /config \
+    chown ${UID:-1000}:${GID:-1000} /config 
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends git cmake build-essential \
     libasound2-dev qtbase5-dev libqt5serialport5-dev libqt5sql5-sqlite libqt5svg5-dev libqt5x11extras5-dev libusb-1.0-0-dev \
