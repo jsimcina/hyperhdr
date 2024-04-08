@@ -24,6 +24,8 @@ jobs:
           ref: ${{ steps.hyperhdrver.outputs.release }}          
           show-progress: true
           github-server-url: 'https://github.com'
+          run: echo "1. $GITHUB_WORKSPACE 2. ${GITHUB_WORKSPACE}"         
+          
       - id: builddebpackage
         name: build-deb-action
         uses: jiro4989/build-deb-action@v3.0.0 
