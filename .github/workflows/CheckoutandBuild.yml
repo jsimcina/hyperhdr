@@ -24,7 +24,7 @@ jobs:
           repository: awawa-dev/HyperHDR
       - id: checkoutcode
         name: Checkout Code from remote repo
-        uses: actions/checkout@latest
+        uses: actions/checkout@v4.11
         with:
           repository: awawa-dev/HyperHDR
           ref: ${{ steps.hyperhdrver.outputs.release }}
