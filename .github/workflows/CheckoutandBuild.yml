@@ -9,28 +9,24 @@ on:
     # Inputs the workflow accepts.
     inputs:
       name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'No need to be friendly!'
-        # Default value if no value is explicitly provided
-        default: 'World'
         # Input has to be provided for the workflow to run
-        required: true
-        # The data type of the input
-        type: string
+        required: false        
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
-  greet:
+  GetLatestVersion:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-latest   
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Get Latest HyperHDR Release
-        uses: pozetroninc/github-action-get-latest-release@v0.7.0
+      - id: hyperhdrver
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: awawa-dev/HyperHDR
-            
+
+      - id: ouput
+        run: |
+          ::warning "${{ steps.hyperhdrver.outputs.release }}"            
     
