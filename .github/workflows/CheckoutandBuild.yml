@@ -15,13 +15,17 @@ jobs:
         name: Get HyperHDR latest version
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: awawa-dev/HyperHDR
+          repository: awawa-dev/HyperHDR          
+      - id: setHDHDRvar
+        env:
+          HYPERHDR_VER: ${{ steps.hyperhdrver.outputs.release }}
+        run: echo $HYPERHDR_VER
       - id: checkoutcode
         name: Checkout Code from remote repo
         uses: actions/checkout@v4.1.1
         with:
           repository: awawa-dev/HyperHDR
-          ref: ${{ steps.hyperhdrver.outputs.release }}          
+          ref: $HYPERHDR_VER          
           show-progress: true
           github-server-url: 'https://github.com'
   BuildDebPackage:
@@ -33,7 +37,7 @@ jobs:
           package: HyperHDR
           package_root: ${GITHUB_WORKSPACE}
           maintainer: 'Jon Simcina'
-          version: ${{ GetandCheckoutLatestVersion.steps.hyperhdrver.outputs.release }}
+          version: $HYPERHDR_VER
           arch: 'amd64'
         
         
