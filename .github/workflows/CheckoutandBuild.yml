@@ -31,7 +31,7 @@ jobs:
         uses: jiro4989/build-deb-action@v3.0.0 
         with:
           package: HyperHDR
-          package_root: "${GITHUB_WORKSPACE}"
+          package_root: .debpkg
           maintainer: 'Jon Simcina'
           version: ${{ steps.hyperhdrver.outputs.release }}
           arch: 'amd64'
