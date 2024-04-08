@@ -21,10 +21,22 @@ jobs:
         uses: actions/checkout@v4.1.1
         with:
           repository: awawa-dev/HyperHDR
-          ref: ${{ steps.hyperhdrver.outputs.release }}
-          path: hyperhdr
+          ref: ${{ steps.hyperhdrver.outputs.release }}          
           show-progress: true
           github-server-url: 'https://github.com'
-    
+  BuildDebPackage:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: build-deb-action
+        uses: jiro4989/build-deb-action@v3.0.0 
+        with:
+          package: HyperHDR
+          package_root: ${GITHUB_WORKSPACE}
+          maintainer: 'Jon Simcina'
+          version: ${{ GetandCheckoutLatestVersion.steps.hyperhdrver.outputs.release }}
+          arch: 'amd64'
+        
+        
+            
     
   
